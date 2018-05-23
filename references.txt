@@ -1,0 +1,7 @@
+Used references:
+- https://medium.freecodecamp.org/send-emails-using-code-4fcea9df63f
+- http://stackabuse.com/how-to-send-emails-with-gmail-using-python/
+
+Possible Helpful References:
+- http://code.activestate.com/recipes/473810-send-an-html-email-with-embedded-image-and-plain-t/
+- http://code.activestate.com/recipes/576824/
