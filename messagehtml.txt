@@ -1,0 +1,8 @@
+<p>Dear ${PERSON_NAME}, </p>
+
+<p>This is a test message. </p>
+<p>Have a great weekend! </p>
+
+<img src="cid:image1">
+
+<p>Heather</p>
