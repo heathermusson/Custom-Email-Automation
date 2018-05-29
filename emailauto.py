@@ -1,6 +1,7 @@
 #Created by Heather Musson on May 14, 2018 (Last updated May 23, 2018)
 
 import smtplib
+import openpyxl
 from string import Template
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
