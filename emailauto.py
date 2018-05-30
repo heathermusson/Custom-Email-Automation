@@ -1,7 +1,7 @@
-#Created by Heather Musson on May 14, 2018 (Last updated May 23, 2018)
+#Created by Heather Musson on May 14, 2018 (Last updated May 30, 2018)
 
 import smtplib
-import openpyxl
+import xlrd #package to read excel file  - xlwt to write files
 from string import Template
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
@@ -17,6 +17,24 @@ def get_contacts(filename):
             emails.append(a_contact.split()[1])
     return names, emails
 
+#get contacts from an excel file
+def get_contacts_excel(filename, sheetname):
+    names = []
+    emails = []
+    #Opens excel file
+    book = xlrd.open_workbook(filename)
+
+    #Gets sheet
+    sheet = book.sheet_by_name(sheetname)
+    print (sheet.nrows)
+
+    for i in range(sheet.nrows):
+        row = sheet.row_values(i)
+        names.append(row[0])
+        emails.append(row[1])
+
+    return names, emails
+
 #import message
 def read_template(filename):
     with open(filename, 'r', encoding = 'utf-8') as template_file:
@@ -24,6 +42,7 @@ def read_template(filename):
     return Template(template_file_content)
 
 def main():
+
     #set up smtp
     try:
         s = smtplib.SMTP_SSL(host='smtp.gmail.com', port = '465')
@@ -33,7 +52,8 @@ def main():
         print ("Error in setting up email connection")
 
     #import contacts
-    names, emails = get_contacts('mycontacts.txt')
+    #names, emails = get_contacts('mycontacts.txt')
+    names, emails = get_contacts_excel('contacts.xlsx', 'Sheet1')
 
     #import message template
     message_template_html = read_template('messagehtml.txt')
@@ -50,7 +70,7 @@ def main():
         #prints message body
         print(messageplain)
 
-        msg['From'] = 'email'
+        msg['From'] = 'emails'
         msg['To'] = email
         msg['Subject'] = "This is a test"
 
