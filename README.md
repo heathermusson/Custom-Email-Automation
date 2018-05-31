@@ -97,6 +97,20 @@ To set the subject of your email 'This is a test' on line 75 (shown below) must 
 msg['Subject'] = "This is a test"
 ```
 
+5. Even more changes to emailauto.py
+If you change the names of your variables on line 55 or 56 (show below) (dependent upon whether you choose to load your contacts from an excel file or a text file):
+
+```
+names, emails = get_contacts('mycontacts.txt')
+names, emails = get_contacts_excel('contacts.xlsx', 'Sheet1')
+```
+
+you must also change their name on line 63 (shown below)
+
+```
+for name, email in zip(names, emails):
+```
+
 ## Built With
 
 * Python
