@@ -26,7 +26,7 @@ def get_contacts_excel(filename, sheetname):
 
     #Gets sheet
     sheet = book.sheet_by_name(sheetname)
-    print (sheet.nrows)
+    print ("Number of emails to send: " + sheet.nrows)
 
     for i in range(sheet.nrows):
         row = sheet.row_values(i)
@@ -47,7 +47,7 @@ def main():
     try:
         s = smtplib.SMTP_SSL(host='smtp.gmail.com', port = '465')
         s.ehlo()
-        s.login('email', 'password')
+        s.login('EMAIL', 'PASSWORD')
     except:
         print ("Error in setting up email connection")
 
@@ -70,7 +70,7 @@ def main():
         #prints message body
         print(messageplain)
 
-        msg['From'] = 'emails'
+        msg['From'] = 'EMAIL
         msg['To'] = email
         msg['Subject'] = "This is a test"
 
@@ -99,6 +99,9 @@ def main():
         s.send_message(msg)
         del msg
         print("Message Sent to " + email)
+        print(" ")
+        print("----------")
+        print(" ")
 
     s.close()
 
