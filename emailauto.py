@@ -1,4 +1,4 @@
-#Created by Heather Musson on May 14, 2018 (Last updated May 30, 2018)
+#Created by Heather Musson on May 14, 2018 (Last updated May 31, 2018)
 
 import smtplib
 import xlrd # package to read excel file  - xlwt to write files
@@ -26,7 +26,7 @@ def get_contacts_excel(filename, sheetname):
 
     #Gets sheet
     sheet = book.sheet_by_name(sheetname)
-    print ("Number of emails to send: " + sheet.nrows)
+    print (sheet.nrows)
 
     for i in range(sheet.nrows):
         row = sheet.row_values(i)
