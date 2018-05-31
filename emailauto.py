@@ -1,7 +1,7 @@
 #Created by Heather Musson on May 14, 2018 (Last updated May 30, 2018)
 
 import smtplib
-import xlrd #package to read excel file  - xlwt to write files
+import xlrd # package to read excel file  - xlwt to write files
 from string import Template
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
@@ -70,7 +70,7 @@ def main():
         #prints message body
         print(messageplain)
 
-        msg['From'] = 'EMAIL
+        msg['From'] = 'EMAIL'
         msg['To'] = email
         msg['Subject'] = "This is a test"
 
