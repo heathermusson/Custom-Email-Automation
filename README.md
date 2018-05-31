@@ -1,10 +1,10 @@
 # Custom-Email-Automation
 
-Code that allows the user to send emails to a list of contacts (either in an excel file or a text file). The email can be customized for each recipient - currently set up to change who the email is addressed to but this can be modifed to add more customized fields. Some knowledge of Python and the Terminal is needed to modify and run this program.
+Code that allows the user to send emails to a list of contacts (either in an excel file or a text file). The email can be customized for each recipient - currently set up to change who the email is addressed to but this can be modified to add more customized fields. Some knowledge of Python and the Terminal is needed to modify and run this program.
 
 ## What is this project?
 
-This project was created while working at a company where I was required to send large amounts of marketing emails each day. With the desire to speed up a repetitive process this project was created. Currently the code is set up for the general case, but with some knowledge of Python and the information contained in this readme it can be modified for a specific case. 
+This project was created while working at a company where I was required to send large amounts of marketing emails each day. With the desire to speed up a repetitive process this project was created. Currently the code is set up for the general case, but with some knowledge of Python and the information contained in this readme it can be modified for a specific case.
 
 ## Folder and File Structure
 ```
@@ -61,55 +61,92 @@ msg['From'] = 'EMAIL
 #### Customize your email template
 
 1. HTML template
-In messagehtml.txt add the html of your custom message. Wherever you want a custom field write the following code, however change 'PERSON_NAME' to a unique identifier. 
+In messagehtml.txt add the html of your custom message. Wherever you want a custom field write the following code, however change 'PERSON_NAME' to a unique identifier.
 
-``` 
+```
 ${PERSON_NAME}
 ```
 
-You made add images using the following code, however change 'image1' to a unique identifer.
+You made add images using the following code, however change 'image1' to a unique identifier.
 
 ```
 <img src="cid:image1">
 ```
 
 2. Plain-text template
-In messageplain.txt add the plain-text version of the message you wish to send. Again, wherever you want a custom field write the following code, however change 'PERSON_NAME' to a unique identifier. 
+In messageplain.txt add the plain-text version of the message you wish to send. Again, wherever you want a custom field write the following code, however change 'PERSON_NAME' to a unique identifier.
 
-``` 
+```
 ${PERSON_NAME}
 ```
 
-In the plain-text message template no images or other unqiue HTML elements may be used.
+In the plain-text message template no images or other unique HTML elements may be used.
 
-3. Changes to emailauto.py
-If you chose to add a custom field 'PERSON_NAME' must be changed to your unique identifer in the code below which can be found on lines 67 and 68 (shown below). If you chose to add more than one custom field additional .substitute must be called. If you chose no custom fields, lines 67 and 68 must be removed (either by deletion, or by making them comments - reccommended). In this example the text that we subsitute comes from a variable called 'name'  if you chose to change this in your code you must also change its name here.
+3. Updating variables based on the number of custom fields
 
+a) If you chose to have one custom fields
+The general example is set up with only one custom field. If you chose to change the identifier of the variable used (currently called 'names'), see the Section 'Lines that must be changed' to see where you must also change its identifier.
+
+b) If you chose to have no custom fields
+If you chose to have no custom fields then all references to the variable entitled 'names' must be removed. See the Section 'Lines that must be changed' to see where must removed the variable.
+
+c) If you chose to have more than one custom fields
+Additional variables must be added for each additional custom field. For example if you have 3 custom fields then 2 additional variables must be added since the general example already includes 1 custom field variable. See the Section 'Lines that must be changed' to see where to add you additional variables.
+
+##### Lines that must be changed
+Line 12:
+```
+names = []
+```
+
+Line 16
+```
+names.append(a_contact.split()[0])
+```
+
+Line 22:
+```
+names = []
+```
+
+Line 33:
+```
+names.append(row[0])
+```
+
+Line 36:
+```
+return names, emails
+```
+
+Lines 55 and 56:
+```
+#names, emails = get_contacts('mycontacts.txt')
+names, emails = get_contacts_excel('contacts.xlsx', 'Sheet1')
+```
+
+Line 63:
+```
+for name, email in zip(names, emails):
+```
+
+Lines 67 and 68:
 ```
 messagehtml = message_template_html.substitute(PERSON_NAME = name.title())
 messageplain = message_template_plain.substitute(PERSON_NAME = name.title())
 ```
 
-4. More changes to emailauto.py
-To set the subject of your email 'This is a test' on line 75 (shown below) must be changed.
+4. Changing the subject of your email
+To change the subject of your email, 'This is a test' on line 75 (shown below) must be changed.
 
 ```
 msg['Subject'] = "This is a test"
 ```
 
-5. Even more changes to emailauto.py
-If you change the names of your variables on line 55 or 56 (show below) (dependent upon whether you choose to load your contacts from an excel file or a text file):
+6. Adding images
+Currently the code supports one image in the HTML verison of your message. This can be changed to either remove the image, or add additional images.
 
-```
-names, emails = get_contacts('mycontacts.txt')
-names, emails = get_contacts_excel('contacts.xlsx', 'Sheet1')
-```
-
-you must also change their name on line 63 (shown below)
-
-```
-for name, email in zip(names, emails):
-```
+a)
 
 ## Built With
 
